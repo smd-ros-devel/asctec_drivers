@@ -19,5 +19,5 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #uncomment if you have defined messages
 rosbuild_genmsg()
 #uncomment if you have defined services
-#rosbuild_gensrv()
-
+rosbuild_gensrv(set_waypoint srv/set_waypoint.srv)
+rosbuild_gensrv(waypoint_command srv/waypoint_command)
