@@ -271,6 +271,59 @@ namespace asctec
       ROS_BREAK ();
     }
   }
+
+  void SerialInterface::sendWaypoint (Telemetry *telemetry)
+  {
+    int i;
+    char data[5];
+
+    if(!telemetry->controlEnabled_)
+      return;
+
+    ROS_DEBUG("sendWaypoint started");
+
+    flush();
+
+    unsigned char *cmd = ">*>ws";
+
+    short checksum = telemetry->WAYPOINT_.yaw + telemetry->WAYPOINT_.height + telemetry->WAYPOINT_.time +
+                     telemetry->WAYPOINT_.X + telemetry->WAYPOINT_.Y + telemetry->WAYPOINT_.max_speed +
+                     telemetry->WAYPOINT_.pos_acc + telemetry->WAYPOINT_.properties + telemetry->WAYPOINT_.wp_number;
+
+    if(telemetry->WAYPOINT_.chksum != checksum)
+    {
+      ROS_ERROR("Invalid Waypoint checksum: %d != %d", telemetry->WAYPOINT_.chksum, checksum);
+      return;
+    }
+
+    output(cmd, 5);
+    output((unsigned char*) &telemetry->WAYPOINT_, sizeof(telemetry->WAYPOINT_));
+    ROS_DEBUG("Writing waypoint to pelican: size of WAYPOINT_ %zd", sizeof(telemetry->WAYPOINT_));
+
+    wait(5);
+    ROS_DEBUG("Data available");
+
+    i = read(dev_, data, 5);
+    if(i != 5) {
+      ROS_ERROR("Waypoint Response : Insufficient Data");
+      flush();
+      return;
+    }
+    if (strncmp(data,">a",2) != 0) {
+      ROS_ERROR("Corrupt Response Header %c%c (%0x%0x)",data[0],data[1],data[0],data[1]);
+      flush();
+      return;
+    }
+    if (strncmp(data+3,"a<",2) != 0) {
+      ROS_ERROR("Corrupt Response Footer %c%c (%0x%0x)",data[3],data[4],data[3],data[4]);
+      flush();
+      return;
+    }
+    ROS_DEBUG("Waypoint Response Code %0x",data[2]);
+
+    ROS_DEBUG("sendWaypoint completed" );
+  }
+
   void SerialInterface::sendControl (Telemetry * telemetry)
   {
     int i;
