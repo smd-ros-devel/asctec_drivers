@@ -478,7 +478,8 @@ You will receive an acknowledge if a command or a waypoint was received correctl
     ros::NodeHandle nh_;
     //asctec_msgs::CtrlInput CtrlInput_;
     bool estop_;
-    
+    bool waypoint;
+    bool waypointCommand;    
   };                            // end class Telemetry
 }                               //end namespace asctec
 #endif
