@@ -31,8 +31,8 @@
 #include "asctec_msgs/GPSDataAdvanced.h"
 #include "asctec_msgs/CtrlInput.h"
 #include <std_msgs/Bool.h>
-#include <asctec_msgs/SetWaypoint.h>
-#include <asctec_msgs/WaypointCommand.h>
+#include "asctec_msgs/SetWaypoint.h"
+#include "asctec_msgs/WaypointCommand.h"
 
 
 namespace asctec
@@ -53,6 +53,33 @@ namespace asctec
     };
   }
   typedef RequestTypes::RequestType RequestType;
+
+  namespace WaypointProperties
+  {
+    enum WaypointProperty
+    {
+      WPPROP_ABSCOORDS = 1,
+      WPPROP_HEIGHTENABLED = 2,
+      WPPROP_YAWENABLED = 4,
+      WPPROP_AUTOMATICGOTO = 8,
+      WPPROP_CAM_TRIGGER = 16
+    };
+  }
+  typedef WaypointProperties::WaypointProperty WaypointProperty;
+
+  namespace WaypointCommands
+  {
+    enum WaypointCommand
+    {
+      WP_CMD_SINGLE_WP = 1,
+      WP_CMD_LAUNCH = 2,
+      WP_CMD_LAND = 3,
+      WP_CMD_GOHOME = 4,
+      WP_CMD_SETHOME = 5,
+      WP_CMD_ABORT = 6
+    };
+  }
+  typedef WaypointCommands::WaypointCommand WaypointCommand;
 
 /**
  * \brief Telemetry interface for the AscTec AutoPilot.
