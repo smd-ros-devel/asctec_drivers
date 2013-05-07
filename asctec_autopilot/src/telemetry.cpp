@@ -506,12 +506,25 @@ namespace asctec
 
   bool Telemetry::SetWaypoint(asctec_msgs::SetWaypoint::Request &req,  asctec_msgs::SetWaypoint::Response &res)
   {
-
+    waypoint = true;
+    
+    WAYPOINT wpt;
+    wpt.wp_number = req.wp_number;
+    wpt.properties = req.properties;
+    wpt.max_speed = (unsigned char)(req.max_speed * 100);  // % in 0-1 -> 0-100
+    wpt.time = (unsigned short)(req.time * 100);  // seconds -> seconds/100
+    wpt.pos_acc = (unsigned short) ( req.pos_acc * 1000 );   // m -> mm
+    wpt.X = int( req.X * 1000 );  // m -> mm
+    wpt.Y = int( req.Y * 1000 );  // m -> mm
+    wpt.yaw = int ( float(req.yaw * 180 / 3.14159265 ) * 1000 );  //radians -> degrees / 1000
+    wpt.height = int ( req.height * 1000 );  // m above 0 reference -> mm above 0
   }
 
   bool Telemetry::WaypointCommand(asctec_msgs::WaypointCommand::Request &req,  asctec_msgs::WaypointCommand::Response &res)
   {
+    waypointCommand = true;
 
+    waypointCommand_ = (WaypointCommands::WaypointCommand)req.command;
   }
 
 }

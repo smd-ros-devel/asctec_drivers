@@ -18,7 +18,7 @@ uint8 wp_number
 # Properties for navigation to the waypoint. See constants above ^
 uint8 properties
 
-#max speed to travel to waypoint in m/s
+#max speed to travel to waypoint in % (0-1)
 float32 max_speed
 
 #time to stay at a waypoint in seconds
@@ -34,7 +34,7 @@ float64 X
 float64 Y
 
 #Desired heading at waypoint in radians
-float32 yaw
+float64 yaw
 
 #height over 0 reference in m
 float32 height

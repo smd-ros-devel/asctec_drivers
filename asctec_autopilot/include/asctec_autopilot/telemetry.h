@@ -479,7 +479,8 @@ You will receive an acknowledge if a command or a waypoint was received correctl
     //asctec_msgs::CtrlInput CtrlInput_;
     bool estop_;
     bool waypoint;
-    bool waypointCommand;    
+    bool waypointCommand;
+    WaypointCommands::WaypointCommand waypointCommand_;       
   };                            // end class Telemetry
 }                               //end namespace asctec
 #endif
