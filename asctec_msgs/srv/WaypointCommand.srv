@@ -1,0 +1,11 @@
+# Type of command constants
+uint8 GOTO_WAYPOINT = 1  #  goto single waypoint
+uint8 LAUNCH = 2         # Launch to 10m at current position
+uint8 LAND = 3           # Land at the current position
+uint8 HOME = 4           # Return to home at current altitude
+uint8 SET_HOME = 5       # Set home position to current position.
+uint8 ABORT = 6          # Abort the waypoint navigation
+
+# The command to be executed as defined by constants above
+uint8 command
+---
