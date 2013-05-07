@@ -162,15 +162,15 @@ namespace asctec
     {
       serialInterface_->sendEstop(telemetry_);
     }
-    else if (telemetry_->waypoint_)
+    else if (telemetry_->sendWaypoint_)
     {
       serialInterface_->sendWaypoint(telemetry_);
-      telemetry_->waypoint_ = false;
+      telemetry_->sendWaypoint_ = false;
     }
-    else if (telemetry_->waypointCommand_)
+    else if (telemetry_->sendWaypointCommand_)
     {
       serialInterface_->sendWaypointCommand(telemetry_);
-      telemetry_->waypointCommand_ = false;
+      telemetry_->sendWaypointCommand_ = false;
     }
     else
     {
