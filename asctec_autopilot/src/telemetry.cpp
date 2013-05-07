@@ -66,6 +66,11 @@ namespace asctec
     ControllerOutput_ = boost::make_shared<asctec_msgs::ControllerOutput>();
     GPSData_          = boost::make_shared<asctec_msgs::GPSData>         ();
     GPSDataAdvanced_  = boost::make_shared<asctec_msgs::GPSDataAdvanced> ();
+
+    // Services
+    WaypointCommand_ = nh.advertiseService( "WaypointCommand", &Telemetry::WaypointCommand, this);
+    SetWaypoint_ = nh.advertiseService( "SetWaypoint", &Telemetry::SetWaypoint, this);
+
   }
   Telemetry::~Telemetry ()
   {
@@ -495,4 +500,18 @@ namespace asctec
     CTRL_INPUT_.chksum = msg.chksum;
     //dumpCTRL_INPUT();
   }
+
+
+
+
+  bool Telemetry::SetWaypoint(asctec_msgs::SetWaypoint::Request &req,  asctec_msgs::SetWaypoint::Response &res)
+  {
+
+  }
+
+  bool Telemetry::WaypointCommand(asctec_msgs::WaypointCommand::Request &req,  asctec_msgs::WaypointCommand::Response &res)
+  {
+
+  }
+
 }
