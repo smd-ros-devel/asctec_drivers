@@ -284,7 +284,7 @@ namespace asctec
 
     flush();
 
-    unsigned char *cmd = ">*>ws";
+    unsigned char cmd[] = ">*>ws";
 
     short checksum = telemetry->WAYPOINT_.yaw + telemetry->WAYPOINT_.height + telemetry->WAYPOINT_.time +
                      telemetry->WAYPOINT_.X + telemetry->WAYPOINT_.Y + telemetry->WAYPOINT_.max_speed +
