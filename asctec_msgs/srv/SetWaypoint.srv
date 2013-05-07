@@ -1,0 +1,41 @@
+###### Constants for waypoint properties ######
+
+#if set, waypoint is interpreted as absolute coordinates, else relative coords
+uint8 WPPROP_ABSCOORDS = 1
+#set new height at waypoint
+uint8 WPPROP_HEIGHTENABLED = 2
+#set new yaw-angle at waypoint
+uint8 WPPROP_YAWENABLED = 4
+#if set, vehicle will not wait for a goto command, but goto this waypoint directly
+uint8 WPPROP_AUTOMATICGOTO = 16
+#if set, photo camera is triggered when waypoint is reached and time to stay is 80% up
+uint8 WPPROP_CAM_TRIGGER = 32
+
+
+#Always set to 1 unless proper use is found.
+uint8 wp_number
+
+# Properties for navigation to the waypoint. See constants above ^
+uint8 properties
+
+#max speed to travel to waypoint in m/s
+float32 max_speed
+
+#time to stay at a waypoint in seconds
+float32 time
+
+#position accuracy to consider a waypoint reached in m
+float32 pos_acc
+
+#waypoint coordinates in m or longitude in abs coords
+float64 X
+
+#waypoint coordinates in m or latitude in abs coords
+float64 Y
+
+#Desired heading at waypoint in radians
+float32 yaw
+
+#height over 0 reference in m
+float32 height
+---
