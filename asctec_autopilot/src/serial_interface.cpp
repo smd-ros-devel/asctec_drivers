@@ -411,89 +411,90 @@ namespace asctec
       {
         ROS_DEBUG ("  Read successful: type = %d, crc = %d", packet_type, packet_crc);
 
-        if (packet_type == Telemetry::PD_LLSTATUS)
-        {
-          ROS_DEBUG ("  Packet type is LL_STATUS");
-          memcpy (&telemetry->LL_STATUS_, spacket, packet_size);
-          telemetry->timestamps_[RequestTypes::LL_STATUS] = packetTime;
-          if (crc_valid (packet_crc, &telemetry->LL_STATUS_, sizeof (packet_size)))
-          {
-            result = true;
-          }
-          //telemetry->dumpLL_STATUS();
-        }
-        else if (packet_type == Telemetry::PD_IMURAWDATA)
-        {
-          ROS_DEBUG ("  Packet type is IMU_RAWDATA");
-          memcpy (&telemetry->IMU_RAWDATA_, spacket, packet_size);
-          telemetry->timestamps_[RequestTypes::IMU_RAWDATA] = packetTime;
-          if (crc_valid (packet_crc, &telemetry->IMU_RAWDATA_, packet_size))
-          {
-            result = true;
-          }
-          //telemetry->dumpIMU_RAWDATA();
-        }
-        else if (packet_type == Telemetry::PD_IMUCALCDATA)
-        {
-          ROS_DEBUG ("  Packet type is IMU_CALCDATA");
-          memcpy (&telemetry->IMU_CALCDATA_, spacket, packet_size);
-          telemetry->timestamps_[RequestTypes::IMU_CALCDATA] = packetTime;
-          if (crc_valid (packet_crc, &telemetry->IMU_CALCDATA_, packet_size))
-          {
-            result = true;
-          }
-          //telemetry->dumpIMU_CALCDATA();
-        }
-        else if (packet_type == Telemetry::PD_RCDATA)
-        {
-          ROS_DEBUG ("  Packet type is RC_DATA");
-          memcpy (&telemetry->RC_DATA_, spacket, packet_size);
-          telemetry->timestamps_[RequestTypes::RC_DATA] = packetTime;
-          if (crc_valid (packet_crc, &telemetry->RC_DATA_, packet_size))
-          {
-            result = true;
-          }
-          //telemetry->dumpRC_DATA();
-        }
-        else if (packet_type == Telemetry::PD_CTRLOUT)
-        {
-          ROS_DEBUG ("  Packet type is CONTROLLER_OUTPUT");
-          memcpy (&telemetry->CONTROLLER_OUTPUT_, spacket, packet_size);
-          telemetry->timestamps_[RequestTypes::CONTROLLER_OUTPUT] = packetTime;
-          if (crc_valid (packet_crc, &telemetry->CONTROLLER_OUTPUT_, packet_size))
-          {
-            result = true;
-          }
-          //telemetry->dumpCONTROLLER_OUTPUT();
-        }
-        else if (packet_type == Telemetry::PD_GPSDATA)
-        {
-          ROS_DEBUG ("  Packet type is GPS_DATA");
-          memcpy (&telemetry->GPS_DATA_, spacket, packet_size);
-          telemetry->timestamps_[RequestTypes::GPS_DATA] = packetTime;
-          if (crc_valid (packet_crc, &telemetry->GPS_DATA_, packet_size))
-          {
-            result = true;
-          }
-          //telemetry->dumpGPS_DATA();
-        }
-        else if (packet_type == Telemetry::PD_GPSDATAADVANCED)
-        {
-          ROS_DEBUG ("  Packet type is GPS_DATA_ADVANCED");
-          memcpy (&telemetry->GPS_DATA_ADVANCED_, spacket, packet_size);
-          telemetry->timestamps_[RequestTypes::GPS_DATA_ADVANCED] = packetTime;
-          if (crc_valid (packet_crc, &telemetry->GPS_DATA_ADVANCED_, packet_size))
-          {
-            result = true;
-          }
-          //telemetry->dumpGPS_DATA_ADVANCED();
-        }
-        else
-        {
-          ROS_ERROR ("  Packet type (%#2x) is UNKNOWN", packet_type);
-        }
-      }
-      else
+	    switch(packet_type)
+	    {
+	      case Telemetry::PD_LLSTATUS:
+            ROS_DEBUG ("  Packet type is LL_STATUS");
+		    memcpy (&telemetry->LL_STATUS_, spacket, packet_size);
+		    telemetry->timestamps_[RequestTypes::LL_STATUS] = packetTime;
+		    if (crc_valid (packet_crc, &telemetry->LL_STATUS_, sizeof (packet_size)))
+		    {
+		      result = true;
+		    }
+		    //telemetry->dumpLL_STATUS();
+		    break;
+
+	      case Telemetry::PD_IMURAWDATA:
+       		ROS_DEBUG ("  Packet type is IMU_RAWDATA");
+		    memcpy (&telemetry->IMU_RAWDATA_, spacket, packet_size);
+		    telemetry->timestamps_[RequestTypes::IMU_RAWDATA] = packetTime;
+		    if (crc_valid (packet_crc, &telemetry->IMU_RAWDATA_, packet_size))
+		    {
+		      result = true;
+		    }
+		    //telemetry->dumpIMU_RAWDATA();
+		    break;
+
+	      case Telemetry::PD_IMUCALCDATA:
+            ROS_DEBUG ("  Packet type is IMU_CALCDATA");
+		    memcpy (&telemetry->IMU_CALCDATA_, spacket, packet_size);
+		    telemetry->timestamps_[RequestTypes::IMU_CALCDATA] = packetTime;
+		    if (crc_valid (packet_crc, &telemetry->IMU_CALCDATA_, packet_size))
+		    {
+		      result = true;
+		    }
+		    //telemetry->dumpIMU_CALCDATA();
+		    break;
+
+	     case Telemetry::PD_RCDATA:
+		   ROS_DEBUG ("  Packet type is RC_DATA");
+		   memcpy (&telemetry->RC_DATA_, spacket, packet_size);
+		   telemetry->timestamps_[RequestTypes::RC_DATA] = packetTime;
+		   if (crc_valid (packet_crc, &telemetry->RC_DATA_, packet_size))
+		   {
+		     result = true;
+		   }
+		   //telemetry->dumpRC_DATA();
+		   break;
+
+	     case Telemetry::PD_CTRLOUT:
+           ROS_DEBUG ("  Packet type is CONTROLLER_OUTPUT");
+		   memcpy (&telemetry->CONTROLLER_OUTPUT_, spacket, packet_size);
+		   telemetry->timestamps_[RequestTypes::CONTROLLER_OUTPUT] = packetTime;
+		   if (crc_valid (packet_crc, &telemetry->CONTROLLER_OUTPUT_, packet_size))
+		   {
+		     result = true;
+		   }
+		   //telemetry->dumpCONTROLLER_OUTPUT();
+		   break;
+
+	     case Telemetry::PD_GPSDATA:
+           ROS_DEBUG ("  Packet type is GPS_DATA");
+		   memcpy (&telemetry->GPS_DATA_, spacket, packet_size);
+		   telemetry->timestamps_[RequestTypes::GPS_DATA] = packetTime;
+		   if (crc_valid (packet_crc, &telemetry->GPS_DATA_, packet_size))
+		   {
+		     result = true;
+		   }
+		   //telemetry->dumpGPS_DATA();
+		   break;
+	  
+	     case Telemetry::PD_GPSDATAADVANCED:
+		   ROS_DEBUG ("  Packet type is GPS_DATA_ADVANCED");
+		   memcpy (&telemetry->GPS_DATA_ADVANCED_, spacket, packet_size);
+		   telemetry->timestamps_[RequestTypes::GPS_DATA_ADVANCED] = packetTime;
+		   if (crc_valid (packet_crc, &telemetry->GPS_DATA_ADVANCED_, packet_size))
+		   {
+		     result = true;
+		   }
+		   //telemetry->dumpGPS_DATA_ADVANCED();
+		   break;
+
+	    default:
+		  ROS_ERROR ("  Packet type (%#2x) is UNKNOWN", packet_type);
+		  break;
+	  }
+    } else
       {
         // failed read
         ROS_ERROR ("  Read failed");
