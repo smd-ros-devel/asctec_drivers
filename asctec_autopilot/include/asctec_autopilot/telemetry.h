@@ -31,6 +31,9 @@
 #include "asctec_msgs/GPSDataAdvanced.h"
 #include "asctec_msgs/CtrlInput.h"
 #include <std_msgs/Bool.h>
+#include <asctec_msgs/SetWaypoint.h>
+#include <asctec_msgs/WaypointCommand.h>
+
 
 namespace asctec
 {
@@ -156,6 +159,14 @@ namespace asctec
     uint8_t controlOffset_;
     ros::Subscriber controlSubscriber_;
     ros::Subscriber estopSubscriber_;
+
+    ros::ServiceServer WaypointCommand_;
+    ros::ServiceServer SetWaypoint_;
+
+    bool SetWaypoint (asctec_msgs::SetWaypoint::Request &req,
+                       asctec_msgs::SetWaypoint::Response &res);
+    bool WaypointCommand (asctec_msgs::WaypointCommand::Request &req,
+                          asctec_msgs::WaypointCommand::Response &res); 
 
     //packet descriptors
     static const uint8_t PD_IMURAWDATA = 0x01;
